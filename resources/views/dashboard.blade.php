@@ -62,9 +62,9 @@
                         </div>
                         <div class="row my-4">
                             <div class="opsi col mb-4">
-                                <h2 class="mt-4" style="text-align: center;">Pengelola Berita</h2>
+                                <h2 class="mt-4" style="text-align: center;">Pengelola Menu</h2>
                                 <img class="sub-logo my-3" src="{{ asset('img/bg/news.png') }}" alt="logo">
-                                <a href="pengelola_berita.php"><button class="tombol mt-2"> Lihat </button></a>
+                                <a href="{{ route('menuset.index') }}"><button class="tombol mt-2"> Lihat </button></a>
                             </div>
                             <div class="opsi col mb-4">
                                 <h2 class="mt-4" style="text-align: center;">Moderasi komentar</h2>
@@ -74,22 +74,12 @@
                             <div class="opsi col mb-4">
                                 <h2 class="mt-4" style="text-align: center;">Kategori </h2>
                                 <img class="sub-logo my-3" src="{{ asset('img/bg/news.png') }}" alt="logo">
-                                <a href="kategori.php"><button class="tombol mt-2"> Lihat </button></a>
+                                <a href="{{ route('kategori.index') }}"><button class="tombol mt-2"> Lihat </button></a>
                             </div>
                             <div class="opsi col mb-4">
                                 <h2 class="mt-4" style="text-align: center;">Pengguna</h2>
                                 <img class="sub-logo my-3" src="{{ asset('img/bg/news.png') }}" alt="logo">
-                                <a href="pengguna.php"><button class="tombol mt-2"> Lihat </button></a>
-                            </div>
-                            <div class="opsi col mb-4">
-                                <h2 class="mt-4" style="text-align: center;">Edit Profil</h2>
-                                <img class="sub-logo my-3" src="{{ asset('img/bg/news.png') }}" alt="logo">
-                                <a href="edit_profil.php"><button class="tombol mt-2"> Lihat </button></a>
-                            </div>
-                            <div class="opsi col mb-4">
-                                <h2 class="mt-4" style="text-align: center;">Beranda</h2>
-                                <img class="sub-logo my-3" src="{{ asset('img/bg/news.png') }}" alt="logo">
-                                <a href="../index.php"><button class="tombol mt-3"> Lihat </button></a>
+                                <a href="{{ route('pengguna.index') }}"><button class="tombol mt-2"> Lihat </button></a>
                             </div>
                         </div>
                         </div>
