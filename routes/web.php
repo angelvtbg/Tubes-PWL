@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuSetController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\UsersController;
 
 
 /*
@@ -87,3 +88,14 @@ Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('ka
 Route::put('/kategori/{id}/update', [KategoriController::class, 'update'])->name('kategori.update');
 Route::delete('/kategori/{id}/delete', [KategoriController::class, 'delete'])->name('kategori.delete'); // Definisi route untuk aksi penghapusan
 
+
+Route::resource('menuset', MenuController::class);
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard/pengguna', [UsersController::class, 'index'])->name('pengguna.index');
+    Route::get('/dashboard/pengguna/create', [UsersController::class, 'create'])->name('pengguna.create'); // Define route for creating a new user
+    Route::post('/dashboard/pengguna', [UsersController::class, 'store'])->name('pengguna.store');
+    Route::get('/dashboard/pengguna/{id}/edit', [UsersController::class, 'edit'])->name('pengguna.edit');
+    Route::put('/dashboard/pengguna/{id}', [UsersController::class, 'update'])->name('pengguna.update');
+    Route::delete('/dashboard/pengguna/{id}', [UsersController::class, 'destroy'])->name('pengguna.destroy');
+});
