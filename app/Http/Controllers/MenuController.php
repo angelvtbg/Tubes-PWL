@@ -101,6 +101,4 @@ public function destroy($id)
 
     return redirect()->route('menuset.index');
 }
-
-
 }

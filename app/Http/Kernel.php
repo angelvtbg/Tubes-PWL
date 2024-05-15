@@ -71,6 +71,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'ensure_role' => \App\Http\Middleware\EnsureUserRole::class,
         // other middleware
+        'checkrole' => \App\Http\Middleware\CheckRole::class,
     ];
     
     

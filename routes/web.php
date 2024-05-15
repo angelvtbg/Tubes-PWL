@@ -99,3 +99,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/dashboard/pengguna/{id}', [UsersController::class, 'update'])->name('pengguna.update');
     Route::delete('/dashboard/pengguna/{id}', [UsersController::class, 'destroy'])->name('pengguna.destroy');
 });
+
+Route::middleware(['auth', 'checkrole:admin,chef'])->group(function () {
+    Route::get('/menuset', [MenuController::class, 'index'])->name('menuset.index');
+    Route::get('/menuset/create', [MenuController::class, 'create'])->name('menuset.create');
+    Route::post('/menuset', [MenuController::class, 'store'])->name('menuset.store');
+    Route::get('/menuset/{id}/edit', [MenuController::class, 'edit'])->name('menuset.edit');
+    Route::put('/menuset/{id}', [MenuController::class, 'update'])->name('menuset.update');
+    Route::delete('/menuset/{id}', [MenuController::class, 'destroy'])->name('menuset.destroy');
+});
+
+Route::get('/menu-of-the-week', [MenuController::class, 'showMenuOfTheWeek']);
