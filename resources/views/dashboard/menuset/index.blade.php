@@ -69,7 +69,7 @@
                                     <img src="{{ Storage::url($menu->gambar_menu) }}" alt="{{ $menu->nama_menu }}" class="w-12 h-12">
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $menu->berita_menu }}
+                                    {{ Str::limit($menu->berita_menu, 100) }}...
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $menu->tanggal_menu }}

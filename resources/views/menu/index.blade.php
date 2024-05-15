@@ -12,7 +12,7 @@
         @foreach($menus as $index => $menu)
         @if ($index < 3)
         <div class="menu__content">
-            <img src="{{ asset('images/menu/'.$menu->gambar_menu) }}" alt="" class="menu__img">
+            <img src="{{ Storage::url($menu->gambar_menu) }}" alt="" class="menu__img">
             {{ $menu->nama_menu }}
             <p>{{ Str::limit($menu->berita_menu, 45) }}...</p>
             {{ $menu->harga_menu }}

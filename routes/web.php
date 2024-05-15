@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuSetController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Chef_ProfileController;
 
 
 /*
@@ -74,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengguna', [App\Http\Controllers\PenggunaController::class, 'index'])->name('pengguna.index');
         Route::get('/menuset', [App\Http\Controllers\MenuSetController::class, 'index'])->name('menuset.index');
         Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori.index');
+        Route::get('/ChefProfile', [ChefProfileController::class, 'index'])->name('ChefProfile.index');
         // Tambahkan rute lain sesuai kebutuhan Anda
     });
 });
@@ -109,4 +111,15 @@ Route::middleware(['auth', 'checkrole:admin,chef'])->group(function () {
     Route::delete('/menuset/{id}', [MenuController::class, 'destroy'])->name('menuset.destroy');
 });
 
+Route::middleware(['auth', 'checkrole:chef'])->group(function () {
+    Route::get('/ChefProfile', [MenuController::class, 'index'])->name('ChefProfile.index');
+});
+
 Route::get('/menu-of-the-week', [MenuController::class, 'showMenuOfTheWeek']);
+Route::put('/ChefProfile/{chefProfile}', [Chef_ProfileController::class, 'update'])->name('ChefProfile.update');
+
+
+Route::middleware(['auth'])->group(function () {
+    // Rute untuk menampilkan halaman pengelolaan profil chef
+    Route::get('/ChefProfile', [Chef_ProfileController::class, 'index'])->name('ChefProfile.index');
+});
