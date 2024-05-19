@@ -26,13 +26,11 @@
         <ul class="navbar-nav ms-auto">
             <!-- Authentication Links -->
             @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
+            <div class="button-grid">
+                <button class="custom-button" onclick="location.href='{{ route('login') }}'">{{ __('login') }}</button>
                 @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
+                <button class="custom-button" onclick="location.href='{{ route('register') }}'">{{ __('Register') }}</button>
+            </div>
                 @endif
             @else
                 <li class="nav-item dropdown">
@@ -40,6 +38,9 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">
+                            {{ __('Dashboard') }}
+                        </a>
                         <a class="dropdown-item" href="{{ route('profile.edit') }}">
                             {{ __('Profile') }}
                         </a>

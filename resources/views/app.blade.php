@@ -16,9 +16,12 @@
     <link href="{{ asset('css/stylesSlider.css') }}" rel="stylesheet">
     <link href="{{ asset('css/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/swiper-bundle2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
 </head>
 <body>
 </body>
+
+</html>
 <script type="text/javascript" src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
@@ -32,4 +35,3 @@
 <script type="text/javascript" src="{{ asset('js/swiper-bundle2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('path/ke/file/javascript.js') }}"></script>
 
-</html>

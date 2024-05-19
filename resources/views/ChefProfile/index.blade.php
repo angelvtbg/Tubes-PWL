@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Edit Profil Chef') }}</div>
                     <div class="card-body">
-                        @if ($chefProfile !== null)
+                        @if($chefProfile)
                             <form action="{{ route('ChefProfile.update', ['chefProfile' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -48,7 +48,7 @@
                                 <button type="submit" class="btn btn-primary">{{ __('Simpan Perubahan') }}</button>
                             </form>
                         @else
-                            <p>Profil chef tidak tersedia. Silakan tambahkan profil chef terlebih dahulu.</p>
+                            <p>Profil koki tidak ditemukan. Silakan registrasi sebagai koki terlebih dahulu.</p>
                         @endif
                     </div>
                 </div>

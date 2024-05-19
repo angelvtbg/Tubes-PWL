@@ -63,6 +63,11 @@
                                                 <p style="text-align: center;">Total Menu</p>
                                             </div>
                                         </div>
+                                        <div class="card ml-2 mr-5 col" style="width: 4rem;">
+                                            <div class="card-title">
+                                                <a href="{{ route('registrasiChef.index') }}" class="text-sm text-gray-700 underline">Registrasi Chef</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +114,20 @@
             </center>
         @elseif(auth()->user()->role == 'user')
             {{-- Konten khusus user --}}
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
+                            <div class="text-center">
+                                <h2 class="text-xl font-bold mb-4">Reservasi</h2>
+                                <a href="{{ route('reservation.index') }}" class="btn btn-primary">Reservasi Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         @elseif(auth()->user()->role == 'chef')
             <center>
                 <div class="py-12">

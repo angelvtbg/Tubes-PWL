@@ -6,9 +6,9 @@
 
 @include('partials.home')
 @include('partials.about')
+@include('partials.services')
 @include('menu.index')
 @include('partials.berita')
-@include('partials.galeri')
 @include('partials.profile_card')
 @include('partials.contact')
 

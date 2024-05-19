@@ -9,7 +9,8 @@
                     </div>
 
                     <div class="contact__button">
-                        <a href="#" class="button">Contact us now</a>
+                        <a href="{{ route('contactus') }}" class="button">Contact us now</a>
                     </div>
+                    
                 </div>
             </section>

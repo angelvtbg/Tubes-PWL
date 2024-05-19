@@ -18,16 +18,14 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
+        // Check if user is authenticated
         if (!Auth::check()) {
-            // User is not logged in
             return redirect('/login');
         }
 
-        $user = Auth::user();
-
         // Check if user has one of the allowed roles
+        $user = Auth::user();
         if (!in_array($user->role, $roles)) {
-            // User does not have the required role
             return redirect('/home')->with('error', 'You do not have access to this page.');
         }
 

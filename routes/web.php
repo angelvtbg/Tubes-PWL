@@ -9,7 +9,10 @@ use App\Http\Controllers\MenuSetController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Chef_ProfileController;
-
+use App\Http\Controllers\RegistrasiChefController;
+use App\Http\Controllers\ChefProfile;
+use App\Http\Controllers\ReservationHistoryController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,11 @@ use App\Http\Controllers\Chef_ProfileController;
 
 
 Route::get('/menu', [MenuController::class, 'index']);
+
+Route::get('/home', function () {
+    return view('app');
+})->name('home');
+
 
 
 Route::get('/dashboard', function () {
@@ -71,6 +79,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/menuset', 'MenuSetController@index')->name('menuset.index');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/reservation/history', [ReservationHistoryController::class, 'index'])->name('reservation.history');
+    Route::post('/reservation/history/delete', [ReservationHistoryController::class, 'delete'])->name('reservation.history.delete');
+
     Route::prefix('dashboard')->group(function () {
         Route::get('/pengguna', [App\Http\Controllers\PenggunaController::class, 'index'])->name('pengguna.index');
         Route::get('/menuset', [App\Http\Controllers\MenuSetController::class, 'index'])->name('menuset.index');
@@ -118,8 +129,44 @@ Route::middleware(['auth', 'checkrole:chef'])->group(function () {
 Route::get('/menu-of-the-week', [MenuController::class, 'showMenuOfTheWeek']);
 Route::put('/ChefProfile/{chefProfile}', [Chef_ProfileController::class, 'update'])->name('ChefProfile.update');
 
+Route::get('/dashboard/registrasiChef', [RegistrasiChefController::class, 'index'])->name('registrasiChef.index');
+Route::post('/dashboard/registrasiChef', [RegistrasiChefController::class, 'store'])->name('registrasiChef.store');
+
 
 Route::middleware(['auth'])->group(function () {
     // Rute untuk menampilkan halaman pengelolaan profil chef
     Route::get('/ChefProfile', [Chef_ProfileController::class, 'index'])->name('ChefProfile.index');
 });
+
+// routes/web.php
+Route::get('/contact-us', function () {
+    return view('contactus');
+})->name('contactus');
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('chef-profile')->group(function () {
+        // Menampilkan formulir edit profil koki
+        Route::get('/edit', [ChefProfileController::class, 'edit'])->name('chef-profile.edit');
+        
+        // Mengupdate profil koki
+        Route::put('/update', [ChefProfileController::class, 'update'])->name('chef-profile.update');
+    });
+});
+
+Route::get('/reservation.index', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservation.index');
+Route::get('/reservation', [App\Http\Controllers\ReservationController::class, 'index'])->middleware('check.user.session');
+Route::get('/reservation/first', [App\Http\Controllers\ReservationController::class, 'showFirst'])->middleware('check.user.session');
+Route::get('/reservation/first', [App\Http\Controllers\ReservationController::class, 'showFirst'])->name('reservation.first');
+Route::post('/reservation/first/date', [App\Http\Controllers\ReservationController::class, 'setDate'])->middleware('check.user.session');
+Route::post('reservation/first/date', [App\Http\Controllers\ReservationController::class, 'setDate'])->name('reservation.setDate');
+Route::post('reservation/first/set-date', [App\Http\Controllers\ReservationController::class, 'setDate'])->name('reservation.setDate');
+Route::post('/reservation/first/chooseTable', [App\Http\Controllers\ReservationController::class, 'chooseTable'])->middleware('check.user.session');
+Route::post('/reservation/first/decide', [App\Http\Controllers\ReservationController::class, 'decide'])->middleware('check.user.session');
+Route::post('/reservation/first/decide', [ReservationController::class, 'decide'])->name('reservation.first.decide');
+Route::get('/reservation/second', [App\Http\Controllers\ReservationController::class, 'showSecond'])->middleware('check.user.session');
+Route::post('/reservation/second', [App\Http\Controllers\ReservationController::class, 'saveContactInfo'])->middleware('check.user.session');
+Route::get('/reservation/third', [App\Http\Controllers\ReservationController::class, 'showThird'])->middleware('check.user.session');
+Route::post('/reservation/third', [App\Http\Controllers\ReservationController::class, 'confirmReservation'])->middleware('check.user.session');
+Route::post('reservation/first/choose', [ReservationController::class, 'choose'])->name('reservation.choose');
+Route::get('/reservation/success', [ReservationController::class, 'success'])->name('reservation.success');
+Route::post('/reservation/first/decide', [ReservationController::class, 'decide'])->name('reservation.first.decide');

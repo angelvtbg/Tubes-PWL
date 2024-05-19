@@ -102,5 +102,4 @@
        <!-- Pagination -->
        <div class="swiper-pagination"></div>
     </div>
-    
  </section>
