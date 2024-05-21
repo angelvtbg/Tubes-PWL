@@ -13,6 +13,8 @@ use App\Http\Controllers\RegistrasiChefController;
 use App\Http\Controllers\ChefProfile;
 use App\Http\Controllers\ReservationHistoryController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReservAdminController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,9 @@ Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/home', function () {
     return view('app');
 })->name('home');
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 
 
@@ -153,6 +158,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::get('/reservation/first', 'ReservationController@showFirst')->middleware('auth');
 Route::get('/reservation.index', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservation.index');
 Route::get('/reservation', [App\Http\Controllers\ReservationController::class, 'index'])->middleware('check.user.session');
 Route::get('/reservation/first', [App\Http\Controllers\ReservationController::class, 'showFirst'])->middleware('check.user.session');
@@ -163,10 +169,17 @@ Route::post('reservation/first/set-date', [App\Http\Controllers\ReservationContr
 Route::post('/reservation/first/chooseTable', [App\Http\Controllers\ReservationController::class, 'chooseTable'])->middleware('check.user.session');
 Route::post('/reservation/first/decide', [App\Http\Controllers\ReservationController::class, 'decide'])->middleware('check.user.session');
 Route::post('/reservation/first/decide', [ReservationController::class, 'decide'])->name('reservation.first.decide');
-Route::get('/reservation/second', [App\Http\Controllers\ReservationController::class, 'showSecond'])->middleware('check.user.session');
-Route::post('/reservation/second', [App\Http\Controllers\ReservationController::class, 'saveContactInfo'])->middleware('check.user.session');
-Route::get('/reservation/third', [App\Http\Controllers\ReservationController::class, 'showThird'])->middleware('check.user.session');
-Route::post('/reservation/third', [App\Http\Controllers\ReservationController::class, 'confirmReservation'])->middleware('check.user.session');
+Route::get('/reservation/second', [ReservationController::class, 'showSecond'])->name('reservation.second');
+Route::post('/reservation/secondSave', [App\Http\Controllers\ReservationController::class, 'saveContactInfo'])->middleware('check.user.session');
+Route::get('/reservation/third', [App\Http\Controllers\ReservationController::class, 'showThird'])->name('reservation.third');
+Route::post('/reservation/third', [App\Http\Controllers\ReservationController::class, 'confirmReservation'])->name('confirmReservation');
 Route::post('reservation/first/choose', [ReservationController::class, 'choose'])->name('reservation.choose');
 Route::get('/reservation/success', [ReservationController::class, 'success'])->name('reservation.success');
 Route::post('/reservation/first/decide', [ReservationController::class, 'decide'])->name('reservation.first.decide');
+Route::post('/saveContactInfo', [ReservationController::class, 'saveContactInfo'])->name('saveContactInfo');
+Route::get('/history/meja', [ReservationHistoryController::class, 'index'])->name('reservhistory');
+Route::get('/history.reservhistory', [App\Http\Controllers\ReservationHistoryController::class, 'index'])->name('history.reservhistory');
+
+Route::get('/admin/reservadmin', [ReservAdminController::class, 'index'])->name('admin.reservadmin');
+Route::post('/admin/reservadmin/accept', [ReservAdminController::class, 'accept'])->name('reservations.accept');
+Route::post('/admin/reservadmin/reject', [ReservAdminController::class, 'reject'])->name('reservations.reject');

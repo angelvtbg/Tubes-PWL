@@ -3,28 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation; // Pastikan model Reservation sudah dibuat
 
 class ReservationHistoryController extends Controller
 {
     public function index()
     {
-        $userLevel = session('role');
-        $idPelanggan = session('idPelanggan');
+        $user = Auth::user();
+    $userLevel = $user->role;
+    $idPelanggan = $user->id;
 
-        if (empty(session('nama')) || $userLevel == 'admin') {
-            return redirect()->route($userLevel == 'admin' ? 'admin.dashboard' : 'home');
-        }
+    if (empty($user->name) || $userLevel == 'admin') {
+        return redirect()->route($userLevel == 'admin' ? 'admin.dashboard' : 'home');
+    }
 
-        $waitingResult = Reservation::where('idPelanggan', $idPelanggan)
-            ->where('status', 'waiting')
-            ->orderBy('tanggal', 'ASC')
-            ->orderBy('jamMasuk', 'ASC')
-            ->get();
+    $waitingResult = Reservation::where('idPelanggan', $idPelanggan)
+        ->where('status', 'waiting')
+        ->orderBy('tanggal', 'ASC')
+        ->orderBy('jamMasuk', 'ASC')
+        ->get();
 
-        // Tambahkan logika untuk status lainnya sesuai kebutuhan
+    $rejectedResult = Reservation::where('idPelanggan', $idPelanggan)
+        ->where('status', 'rejected')
+        ->orderBy('tanggal', 'ASC')
+        ->orderBy('jamMasuk', 'ASC')
+        ->get();
 
-        return view('history.reservhistory', compact('waitingResult'));
+    $absentResult = Reservation::where('idPelanggan', $idPelanggan)
+        ->where('status', 'absent')
+        ->orderBy('tanggal', 'ASC')
+        ->orderBy('jamMasuk', 'ASC')
+        ->get();
+
+    $confirmedResult = Reservation::where('idPelanggan', $idPelanggan)
+        ->where('status', 'confirmed')
+        ->orderBy('tanggal', 'ASC')
+        ->orderBy('jamMasuk', 'ASC')
+        ->get();
+
+    $attendedResult = Reservation::where('idPelanggan', $idPelanggan)
+        ->where('status', 'attended')
+        ->orderBy('tanggal', 'ASC')
+        ->orderBy('jamMasuk', 'ASC')
+        ->get();
+
+    // Tambahkan logika untuk status lainnya sesuai kebutuhan
+
+    return view('history.reservhistory', compact('waitingResult', 'rejectedResult', 'absentResult', 'confirmedResult', 'attendedResult'));
     }
 
     public function delete(Request $request)

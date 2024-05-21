@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\LoginController;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Reservation;
@@ -20,7 +23,8 @@ class ReservationController extends Controller
 
     public function showFirst(Request $request)
     {
-        $idPelanggan = Session::get('idPelanggan');
+        $idPelanggan = Auth::user()->id;
+
         $tipeMeja = $request->query('tipeMeja');
         $namaMeja = [];
         $hargaMeja = 0;
@@ -38,12 +42,14 @@ class ReservationController extends Controller
             ->where('status', 'processing')
             ->first();
 
-        return view('reservation.first', compact('namaMeja', 'hargaMeja', 'reservResult', 'tipeMeja'));
+        $biaya = $reservResult ? $reservResult->biaya : null;
+
+        return view('reservation.first', compact('namaMeja', 'hargaMeja', 'reservResult', 'tipeMeja', 'biaya'));
     }
 
     public function setDate(Request $request)
     {
-        $idPelanggan = Session::get('idPelanggan');
+        $idPelanggan = Auth::user()->id;
         $tipeMeja = $request->query('tipeMeja');
         $tanggal = $request->input('tanggal');
 
@@ -64,8 +70,12 @@ class ReservationController extends Controller
                 ->where('status', 'processing')
                 ->update(['tanggal' => $tanggal]);
         }
+        $reservResult = DB::table('reservation')
+            ->where('idPelanggan', $idPelanggan)
+            ->where('status', 'processing')
+            ->first();
 
-        return redirect()->route('reservation.first', ['tipeMeja' => $tipeMeja]);
+        return redirect()->route('reservation.first', ['tipeMeja' => $tipeMeja, 'reservResult']);
     }
 
     public function chooseTable(Request $request)
@@ -141,7 +151,8 @@ class ReservationController extends Controller
 
     public function showSecond(Request $request)
     {
-        $idPelanggan = Session::get('idPelanggan');
+        $idPelanggan = Auth::user()->id;
+
         $reservResult = DB::table('reservation')
             ->where('idPelanggan', $idPelanggan)
             ->where('status', 'processing')
@@ -153,12 +164,12 @@ class ReservationController extends Controller
 
         $userResult = DB::table('users')->where('id', $idPelanggan)->first();
 
-        return view('reservationTable.second', compact('userResult', 'reservResult'));
+        return view('reservation.second', compact('userResult', 'reservResult'));
     }
 
     public function saveContactInfo(Request $request)
     {
-        $idPelanggan = Session::get('idPelanggan');
+        $idPelanggan = Auth::user()->id;
         $atasNama = $request->input('atasNama');
         $email = $request->input('email');
         $telepon = $request->input('telepon');
@@ -172,12 +183,12 @@ class ReservationController extends Controller
                 'telepon' => $telepon
             ]);
 
-        return redirect()->route('reservation.third');
-    }
+            return redirect()->route('reservation.third');
+        }
 
     public function showThird(Request $request)
     {
-        $idPelanggan = Session::get('idPelanggan');
+        $idPelanggan = Auth::user()->id;
         $reservResult = DB::table('reservation')
             ->where('idPelanggan', $idPelanggan)
             ->where('status', 'processing')
@@ -187,88 +198,117 @@ class ReservationController extends Controller
             return redirect()->route('reservation.first');
         }
 
-        return view('reservationTable.third', compact('reservResult'));
+        return view('reservation.third', compact('reservResult'));
     }
 
     public function confirmReservation(Request $request)
-    {
-        $idPelanggan = Session::get('idPelanggan');
+{
+    $idPelanggan = Auth::user()->id;
 
-        $request->validate([
-            'buktiBayar' => 'required|image|mimes:jpeg,png,jpg|max:1024',
-        ]);
+    $request->validate([
+        'buktiBayar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-        if ($request->hasFile('buktiBayar')) {
-            $buktiBayar = $request->file('buktiBayar')->store('bukti_bayar', 'public');
-        }
+    if ($request->hasFile('buktiBayar')) {
+        // Buat nama file yang unik
+        $fileName = time() . '_' . $request->file('buktiBayar')->getClientOriginalName();
+        // Simpan file ke direktori public/images/bukti_bayar
+        $path = $request->file('buktiBayar')->store('public/images/bukti_bayar');
 
-        DB::table('reservation')
-            ->where('idPelanggan', $idPelanggan)
-            ->where('status', 'processing')
-            ->update([
-                'buktiBayar' => $buktiBayar,
-                'status' => 'waiting'
-            ]);
-
-        return redirect()->route('reservhistory');
+        // Hapus 'public/' dari path untuk penyimpanan di database
+        $buktiBayar = $path;
     }
 
-    public function choose(Request $request)
-    {
-        // Validasi data
-        $validatedData = $request->validate([
-            'idMeja' => 'required|integer',
-            'jamMasuk' => 'required|date_format:H:i',
-            'jamKeluar' => 'required|date_format:H:i',
-            'hargaMeja' => 'required|numeric',
-            'tipeMeja' => 'required|string',
+    DB::table('reservation')
+        ->where('idPelanggan', $idPelanggan)
+        ->where('status', 'processing')
+        ->update([
+            'buktiBayar' => $buktiBayar,
+            'status' => 'waiting'
         ]);
 
-        // Mengambil nilai yang telah divalidasi
-        $idPelanggan = Session::get('idPelanggan');
-        $idMeja = $validatedData['idMeja'];
-        $jamMasuk = $validatedData['jamMasuk'];
-        $jamKeluar = $validatedData['jamKeluar'];
-        $hargaMeja = $validatedData['hargaMeja'];
-        $tipeMeja = $validatedData['tipeMeja'];
-
-        // Menghitung durasi reservasi dalam menit
-        $durasiReservasi = Carbon::parse($jamMasuk)->diffInMinutes(Carbon::parse($jamKeluar));
-
-        // Menghitung biaya reservasi
-        $biaya = $durasiReservasi / 60 * $hargaMeja; // Harga per jam * durasi reservasi dalam jam
-
-        $timeCheckResult = $this->timeCheck($idMeja, $jamMasuk, $jamKeluar, $hargaMeja);
+    return redirect()->route('reservhistory');
+}
 
 
-        if ($timeCheckResult == -1) {
-            return back()->with('error', 'Meja yang anda pilih sudah direservasi di jam tersebut');
-        } else if ($timeCheckResult == -2) {
-            return back()->with('error', 'Durasi reservasi minimal 1 jam');
-        } else if ($timeCheckResult == -3) {
-            return back()->with('error', 'Jam keluar tidak boleh lebih dulu dari jam masuk.');
-        }
+    public function choose(Request $request)
+{
+    $idPelanggan = Auth::user()->id;
 
-        $tipeMeja = $validatedData['tipeMeja'];
-        // Parse jamMasuk dan jamKeluar dengan tanggal yang sesuai
-        $tanggal = Carbon::parse($request->input('tanggal'));
-        $jamMasuk = Carbon::parse($tanggal->toDateString() . ' ' . $validatedData['jamMasuk']);
-        $jamKeluar = Carbon::parse($tanggal->toDateString() . ' ' . $validatedData['jamKeluar']);
+    // Validasi data
+    $validatedData = $request->validate([
+        'idMeja' => 'required|integer',
+        'tanggal' => 'required|date',
+        'jamMasuk' => 'required|date_format:H:i',
+        'jamKeluar' => 'required|date_format:H:i',
+        'hargaMeja' => 'required|numeric',
+        'tipeMeja' => 'required|string',
+    ]);
 
-        // Simpan data ke database
-        $reservation = new Reservation();
-        $reservation->idMeja = $validatedData['idMeja'];
+    // Mengambil nilai yang telah divalidasi
+    $idMeja = $validatedData['idMeja'];
+    $tanggal = $validatedData['tanggal'];
+    $jamMasuk = $validatedData['jamMasuk'];
+    $jamKeluar = $validatedData['jamKeluar'];
+    $hargaMeja = $validatedData['hargaMeja'];
+    $tipeMeja = $validatedData['tipeMeja'];
+
+    // Menghitung durasi reservasi dalam menit
+    $durasiReservasi = Carbon::parse($jamMasuk)->diffInMinutes(Carbon::parse($jamKeluar));
+
+    // Menghitung biaya reservasi
+    $biaya = $durasiReservasi / 60 * $hargaMeja; // Harga per jam * durasi reservasi dalam jam
+
+    // Cek konflik waktu reservasi
+    $timeCheckResult = $this->timeCheck($idMeja, $jamMasuk, $jamKeluar, $hargaMeja);
+
+    if ($timeCheckResult == -1) {
+        return back()->with('error', 'Meja yang anda pilih sudah direservasi di jam tersebut');
+    } else if ($timeCheckResult == -2) {
+        return back()->with('error', 'Durasi reservasi minimal 1 jam');
+    } else if ($timeCheckResult == -3) {
+        return back()->with('error', 'Jam keluar tidak boleh lebih dulu dari jam masuk.');
+    }
+
+    // Parse jamMasuk dan jamKeluar dengan tanggal yang sesuai
+    $tanggal = Carbon::parse($request->input('tanggal'));
+    $jamMasuk = Carbon::parse($tanggal->toDateString() . ' ' . $validatedData['jamMasuk']);
+    $jamKeluar = Carbon::parse($tanggal->toDateString() . ' ' . $validatedData['jamKeluar']);
+
+    // Cari reservasi yang sudah ada berdasarkan idPelanggan dan tanggal
+    $reservation = Reservation::where('idPelanggan', $idPelanggan)
+                    ->where('tanggal', $tanggal)
+                    ->first();
+
+    // Jika reservasi ditemukan, update data
+    if ($reservation) {
+        $reservation->idMeja = $idMeja;
         $reservation->jamMasuk = $jamMasuk;
         $reservation->jamKeluar = $jamKeluar;
         $reservation->biaya = $biaya;
-        $reservation->hargaMeja = $validatedData['hargaMeja'];
-        $reservation->tipeMeja = $validatedData['tipeMeja'];
+        $reservation->hargaMeja = $hargaMeja;
+        $reservation->tipeMeja = $tipeMeja;
         $reservation->status = 'processing'; // atau status default yang diinginkan
-        $reservation->save();
-
-        // Redirect atau kembalikan respon yang sesuai
-        return redirect()->route('reservation.first', ['tipeMeja' => $tipeMeja]);
+    } else {
+        // Jika reservasi tidak ditemukan, buat entri baru
+        $reservation = new Reservation();
+        $reservation->idPelanggan = $idPelanggan;
+        $reservation->idMeja = $idMeja;
+        $reservation->tanggal = $tanggal;
+        $reservation->jamMasuk = $jamMasuk;
+        $reservation->jamKeluar = $jamKeluar;
+        $reservation->biaya = $biaya;
+        $reservation->hargaMeja = $hargaMeja;
+        $reservation->tipeMeja = $tipeMeja;
+        $reservation->status = 'processing'; // atau status default yang diinginkan
     }
+
+    // Simpan reservasi (baik update atau entri baru)
+    $reservation->save();
+
+    // Redirect atau kembalikan respon yang sesuai
+    return redirect()->route('reservation.first', ['tipeMeja' => $tipeMeja]);
+}
 
     public function success()
     {

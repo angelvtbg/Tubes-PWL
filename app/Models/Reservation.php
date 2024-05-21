@@ -12,6 +12,6 @@ class Reservation extends Model
     protected $table = 'reservation';
 
     protected $fillable = [
-        'idPelanggan', 'status', 'tanggal', 'jamMasuk', 'jamKeluar', 'idMeja', 'biaya', 'atasNama', 'email', 'telepon'
+        'idPelanggan', 'status', 'tanggal', 'jamMasuk', 'jamKeluar', 'idMeja', 'biaya', 'atasNama', 'email', 'telepon', 'buktiBayar'
     ];
 }

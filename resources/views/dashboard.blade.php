@@ -104,6 +104,14 @@
                                             <img class="sub-logo my-3" src="{{ asset('images/bg/pengguna.png') }}" alt="logo">
                                             <a href="{{ route('pengguna.index') }}"><button class="tombol mt-2"> Lihat </button></a>
                                         </div>
+                                        <div class="card ml-2 mr-5 col" style="width: 4rem;">
+                                            @if(Auth::check() && Auth::user()->role == 'admin')
+                                            <h2 class="mt-4" style="text-align: center;">Kelola Reservasi</h2>
+                                            <div class="card-title">
+                                                <a href="{{ route('admin.reservadmin') }}" class="text-sm text-gray-700 underline">lihat</a>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                     </div>
                                 </div>
@@ -122,6 +130,19 @@
                             <div class="text-center">
                                 <h2 class="text-xl font-bold mb-4">Reservasi</h2>
                                 <a href="{{ route('reservation.index') }}" class="btn btn-primary">Reservasi Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
+                            <div class="text-center">
+                                <h2 class="text-xl font-bold mb-4">Histori Pemesanan</h2>
+                                <a href="{{ route('history.reservhistory') }}" class="btn btn-primary">Lihat Histori</a>
                             </div>
                         </div>
                     </div>

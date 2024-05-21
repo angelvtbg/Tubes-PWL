@@ -18,14 +18,14 @@
                 <div class="home__data">
                     <h1>Biodata</h1>
                     <p>Silahkan isi data diri anda</p>
-                    <form method="POST" action="{{ url('reservation/second') }}">
+                    <form method="POST" action="{{ route('saveContactInfo') }}">
                         @csrf
                         <table>
                             <tr>
                                 <td><label for="name">Atas nama</label></td>
                             </tr>
                             <tr>
-                                <td><input type="text" id="name" value="{{ $userResult->nama }}" name="atasNama" required></td>
+                                <td><input type="text" id="name" value="{{ $userResult->name }}" name="atasNama" required></td>
                             </tr>
                             <tr>
                                 <td><label for="email">Email</label></td>

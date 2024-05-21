@@ -45,4 +45,33 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // Simpan idPelanggan ke dalam session
+        $idPelanggan = Auth::id();
+        $request->session()->put('idPelanggan', $idPelanggan);
+
+        return redirect()->intended($this->redirectPath());
+    }
+
+    public function login(Request $request)
+{
+    // Validasi login dan autentikasi pengguna
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+        // Ambil id pengguna yang berhasil login
+        $idPelanggan = Auth::user()->id;
+        
+        // Simpan idPelanggan ke dalam session
+        Session::put('idPelanggan', $idPelanggan);
+
+        // Redirect ke halaman tujuan
+        return redirect()->intended('dashboard');
+    }
+
+    // Jika login gagal
+    return redirect()->back()->with('error', 'Email atau password salah');
+}
+
 }

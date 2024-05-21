@@ -18,7 +18,7 @@
                 <div class="home__data">
                     <h1>Konfirmasi</h1>
                     <p>Silahkan konfirmasi data anda</p>
-                    <form method="POST" action="{{ url('reservation/third') }}" enctype="multipart/form-data">
+                    <form method="POST" action='{{ route('confirmReservation') }}' enctype="multipart/form-data">
                         @csrf
                         <table>
                             <tr>
@@ -119,8 +119,8 @@
                     return;
                 }
 
-                if (file.size > 1024 * 1024) {
-                    errorMessage.textContent = 'Ukuran file gambar tidak boleh lebih dari 1 MB.';
+                if (file.size > 2048 * 2048) {
+                    errorMessage.textContent = 'Ukuran file gambar tidak boleh lebih dari 2 MB.';
                     input.value = ''; // Kosongkan input gambar
                 } else {
                     errorMessage.textContent = ''; // Bersihkan pesan error jika valid

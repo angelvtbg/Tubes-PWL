@@ -26,7 +26,7 @@
                                 <input type="date" name="tanggal" id="tanggal" required>
                                 <input type="hidden" name="idPelanggan" value="{{ Session::get('idPelanggan') }}">
                                 <button type="submit" class="custom-button">Pilih</button>
-                            </form>
+                            </form>                            
                         </div>
 
                         <div style="margin-top: 50px">
