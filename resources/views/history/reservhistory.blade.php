@@ -15,7 +15,7 @@
     <title>Reservation History : Café de Flore</title>
 </head>
 <body>
-
+    @include('partials.navbar')
     <!--========== SCROLL TOP ==========-->
     <a href="#" class="scrolltop" id="scroll-top">
         <i class='bx bx-chevron-up scrolltop__icon'></i>

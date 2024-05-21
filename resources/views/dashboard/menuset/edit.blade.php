@@ -21,7 +21,7 @@
                         <!-- Kategori -->
                         <div class="mb-4">
                             <label for="id_kategori" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
-                            <input type="text" name="id_kategori" id="id_kategori" class="mt-1 block w-full" value="{{ $menu->id_kategori }}" required>
+                            <input type="number" name="id_kategori" id="id_kategori" class="mt-1 block w-full" value="{{ $menu->id_kategori }}" required>
                         </div>
                         <!-- Nama Menu -->
                         <div class="mb-4">

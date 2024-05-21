@@ -10,8 +10,9 @@ class MenuSetController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        return view('dashboard.menuset.index', compact('menus'));
+        $categories = Kategori::all();
+        $menus = Menu::with('kategori')->get();
+        return view('dashboard.menuset.index', compact('menus', 'categories'));
     }
 
     public function create()
@@ -52,8 +53,9 @@ class MenuSetController extends Controller
 
     public function edit($id)
     {
+        $categories = Kategori::all();
         $menu = Menu::findOrFail($id);
-        return view('dashboard.menuset.edit', compact('menu'));
+        return view('dashboard.menuset.edit', compact('menu', 'categories'));
     }
 
     public function update(Request $request, $id)

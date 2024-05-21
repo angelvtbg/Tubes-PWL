@@ -101,4 +101,14 @@ public function destroy($id)
 
     return redirect()->route('menuset.index');
 }
+public function details($id)
+    {
+        $menu = Menu::find($id);
+
+        if (!$menu) {
+            return redirect()->route('orders.index')->with('error', 'Menu item not found.');
+        }
+
+        return view('menu.details', compact('menu'));
+    }
 }

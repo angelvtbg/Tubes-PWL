@@ -44,8 +44,9 @@ class KategoriController extends Controller
         $request->validate([
             'name' => 'required|max:255',
         ]);
-
+        
         $kategori->update($request->all());
+        
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui');
     }
 

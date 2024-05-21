@@ -16,7 +16,7 @@
                     <div class="card-header">{{ __('Edit Profil Chef') }}</div>
                     <div class="card-body">
                         @if($chefProfile)
-                            <form action="{{ route('ChefProfile.update', ['chefProfile' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('Chefprofile.update', ['chefProfile' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 

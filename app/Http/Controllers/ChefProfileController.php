@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\Chef_Profile;
+use App\Models\ChefProfile;
 use App\Models\Users;
-use App\Http\Controllers\ChefProfileController;
+use App\Http\Controllers\Chef_ProfileController;
 
 
 class Chef_ProfileController extends Controller

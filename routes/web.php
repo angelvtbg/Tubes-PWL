@@ -10,10 +10,12 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Chef_ProfileController;
 use App\Http\Controllers\RegistrasiChefController;
-use App\Http\Controllers\ChefProfile;
+use App\Http\Controllers\ChefProfileController;
 use App\Http\Controllers\ReservationHistoryController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReservAdminController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\orderAdminController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -102,8 +104,8 @@ Route::resource('kategori', KategoriController::class);
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
 Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
-Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-Route::put('/kategori/{id}/update', [KategoriController::class, 'update'])->name('kategori.update');
+Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori/{kategori}/update', [KategoriController::class, 'update'])->name('kategori.update');
 Route::delete('/kategori/{id}/delete', [KategoriController::class, 'delete'])->name('kategori.delete'); // Definisi route untuk aksi penghapusan
 
 
@@ -126,36 +128,30 @@ Route::middleware(['auth', 'checkrole:admin,chef'])->group(function () {
     Route::put('/menuset/{id}', [MenuController::class, 'update'])->name('menuset.update');
     Route::delete('/menuset/{id}', [MenuController::class, 'destroy'])->name('menuset.destroy');
 });
-
-Route::middleware(['auth', 'checkrole:chef'])->group(function () {
-    Route::get('/ChefProfile', [MenuController::class, 'index'])->name('ChefProfile.index');
-});
-
 Route::get('/menu-of-the-week', [MenuController::class, 'showMenuOfTheWeek']);
-Route::put('/ChefProfile/{chefProfile}', [Chef_ProfileController::class, 'update'])->name('ChefProfile.update');
 
-Route::get('/dashboard/registrasiChef', [RegistrasiChefController::class, 'index'])->name('registrasiChef.index');
-Route::post('/dashboard/registrasiChef', [RegistrasiChefController::class, 'store'])->name('registrasiChef.store');
-
-
-Route::middleware(['auth'])->group(function () {
-    // Rute untuk menampilkan halaman pengelolaan profil chef
-    Route::get('/ChefProfile', [Chef_ProfileController::class, 'index'])->name('ChefProfile.index');
-});
-
-// routes/web.php
 Route::get('/contact-us', function () {
     return view('contactus');
 })->name('contactus');
 
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('chef-profile')->group(function () {
-        // Menampilkan formulir edit profil koki
-        Route::get('/edit', [ChefProfileController::class, 'edit'])->name('chef-profile.edit');
-        
-        // Mengupdate profil koki
-        Route::put('/update', [ChefProfileController::class, 'update'])->name('chef-profile.update');
-    });
+    // Rute untuk menampilkan halaman pengelolaan profil chef
+    Route::get('/Chefprofile', [Chef_ProfileController::class, 'index'])->name('Chefprofile.index');
+
+    // Menampilkan formulir edit profil koki
+    Route::get('/Chefprofile/edit', [Chef_ProfileController::class, 'edit'])->name('Chefprofile.edit');
+
+    // Mengupdate profil koki
+    Route::put('/Chefprofile/{chefProfile}', [Chef_ProfileController::class, 'update'])->name('Chefprofile.update');
+});
+
+Route::middleware(['auth', 'checkrole:chef'])->group(function () {
+    Route::get('/menu-of-the-week', [MenuController::class, 'showMenuOfTheWeek']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/registrasiChef', [RegistrasiChefController::class, 'index'])->name('registrasiChef.index');
+    Route::post('/dashboard/registrasiChef', [RegistrasiChefController::class, 'store'])->name('registrasiChef.store');
 });
 
 Route::get('/reservation/first', 'ReservationController@showFirst')->middleware('auth');
@@ -183,3 +179,12 @@ Route::get('/history.reservhistory', [App\Http\Controllers\ReservationHistoryCon
 Route::get('/admin/reservadmin', [ReservAdminController::class, 'index'])->name('admin.reservadmin');
 Route::post('/admin/reservadmin/accept', [ReservAdminController::class, 'accept'])->name('reservations.accept');
 Route::post('/admin/reservadmin/reject', [ReservAdminController::class, 'reject'])->name('reservations.reject');
+
+Route::get('order/index', [App\Http\Controllers\orderController::class, 'index'])->name('order.index');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::post('/orders/search', [OrderController::class, 'search'])->name('orders.search');
+Route::post('/orders/delete', [OrderController::class, 'deleteOrder'])->name('orders.delete');
+Route::post('/orders/confirm', [OrderController::class, 'confirmOrder'])->name('orders.confirm');
+Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
+
+Route::get('/menu/{id}', [MenuController::class, 'details'])->name('menu.details');

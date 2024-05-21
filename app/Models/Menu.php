@@ -22,4 +22,8 @@ class Menu extends Model
         'tanggal_menu',
         'dilihat',
     ];
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori');
+    }
 }

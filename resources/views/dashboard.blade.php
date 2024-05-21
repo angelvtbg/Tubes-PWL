@@ -141,7 +141,20 @@
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
                             <div class="text-center">
-                                <h2 class="text-xl font-bold mb-4">Histori Pemesanan</h2>
+                                <h2 class="text-xl font-bold mb-4">Pesan Makanan</h2>
+                                <a href="{{ route('order.index') }}" class="btn btn-primary">Pesan Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
+                            <div class="text-center">
+                                <h2 class="text-xl font-bold mb-4">Histori Reservasi</h2>
                                 <a href="{{ route('history.reservhistory') }}" class="btn btn-primary">Lihat Histori</a>
                             </div>
                         </div>
@@ -182,7 +195,7 @@
                                 <div class="jumbotron dashboard">
                                     <div class="row">
                 <!-- Tombol untuk mengelola profil chef -->
-                <a href="{{ route('ChefProfile.index') }}" class="btn btn-primary mt-4">Kelola Profil Chef</a>
+                <a href="{{ route('Chefprofile.index') }}" class="btn btn-primary mt-4">Kelola Profil Chef</a>
                                     </div>
                                 </div>
                             </div>

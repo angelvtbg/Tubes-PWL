@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Order extends Model
 {
     use HasFactory;
-    
+
+    protected $table = 'ticket';
+
     protected $fillable = [
-        'name'
+        'idPelanggan', 'pesanan', 'status', 'total'
     ];
-    
 }
