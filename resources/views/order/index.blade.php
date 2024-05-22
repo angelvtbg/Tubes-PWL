@@ -1,4 +1,7 @@
-
+<head>
+    <link rel="stylesheet" href="{{ asset('css/stylesReserve.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cust.css') }}">
+</head>
 <x-app-layout>
 <section class="menu section menusection" id="menu">
     <div class="menulist__container" id="menulist">
@@ -29,11 +32,11 @@
                 @else
                     @foreach ($menus as $menu)
                         <div class="menu__content">
-                            <img src="{{ asset('img/menu/' . $menu->gambarMenu) }}" alt="" class="menu__img">
-                            <h3 class="menu__name">{{ $menu->namaMenu }}</h3>
-                            <span class="menu__detail">Delicious dish</span>
-                            <span class="menu__preci">Rp {{ number_format($menu->hargaMenu, 0, ',', '.') }}</span>
-                            <a href="{{ route('menu.details', ['id' => $menu->id_menu]) }}" class="cart menu__button"><i class='bx bx-cart-alt'></i></a>
+                            <img src="{{ Storage::url($menu->gambar_menu) }}" alt="" class="menu__img">
+                            <h3 class="menu__name">{{ $menu->nama_menu }}</h3>
+                            <span class="menu__detail">{{ Str::limit($menu->berita_menu, 20) }}</span>
+                            <span class="menu__preci">Rp {{ number_format((float)$menu->harga_menu, 0, ',', '.') }}</span>
+                            <a href="{{ route('order.details', ['id' => $menu->id_menu]) }}" class="cart menu__button"><i class='bx bx-cart-alt'></i></a>
                         </div>
                     @endforeach
                 @endif

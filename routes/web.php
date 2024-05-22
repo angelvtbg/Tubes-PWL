@@ -52,7 +52,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
 });
 
 require __DIR__.'/auth.php';
@@ -186,5 +185,7 @@ Route::post('/orders/search', [OrderController::class, 'search'])->name('orders.
 Route::post('/orders/delete', [OrderController::class, 'deleteOrder'])->name('orders.delete');
 Route::post('/orders/confirm', [OrderController::class, 'confirmOrder'])->name('orders.confirm');
 Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
+Route::post('/order/add', [OrderController::class, 'addToCart'])->name('order.add');
+Route::post('/order/addToCart', [OrderController::class, 'addToCart'])->name('order.addToCart');
 
-Route::get('/menu/{id}', [MenuController::class, 'details'])->name('menu.details');
+Route::get('/order/{id}', [OrderController::class, 'details'])->name('order.details');

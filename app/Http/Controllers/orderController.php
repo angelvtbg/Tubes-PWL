@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Kategori;
 use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -69,8 +71,45 @@ class OrderController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $menus = Menu::where('namaMenu', 'like', '%' . $keyword . '%')->get();
+        $menus = Menu::where('nama_menu', 'like', '%' . $keyword . '%')->get();
 
         return view('order.index', compact('menus'));
     }
+
+    public function details($id)
+    {
+        $menu = Menu::find($id);
+
+        if (!$menu) {
+            return redirect()->route('orders.index')->with('error', 'Menu item not found.');
+        }
+
+        return view('order.details', compact('menu'));
+    }
+    public function addToCart(Request $request)
+{
+    $idPelanggan = Auth::id();
+    $order = Ticket::where('idPelanggan', $idPelanggan)->where('status', 'waiting')->first();
+
+    if (!$order) {
+        $order = new Ticket();
+        $order->idPelanggan = $idPelanggan;
+        $order->status = 'waiting';
+        $order->save();
+    }
+
+    $orders = json_decode($order->pesanan, true);
+    $newOrder = [
+        'namaMenu' => $request->namaMenu,
+        'quantity' => $request->quantity,
+        'subtotalMenu' => $request->hargaMenu * $request->quantity,
+    ];
+
+    $orders[] = $newOrder;
+    $order->pesanan = json_encode($orders);
+    $order->total = $order->total + $request->hargaMenu * $request->quantity;
+    $order->save();
+
+    return redirect()->route('orders.index');
+}
 }
