@@ -189,3 +189,4 @@ Route::post('/order/add', [OrderController::class, 'addToCart'])->name('order.ad
 Route::post('/order/addToCart', [OrderController::class, 'addToCart'])->name('order.addToCart');
 
 Route::get('/order/{id}', [OrderController::class, 'details'])->name('order.details');
+Route::get('/order/history', [OrderController::class, 'orderHistory'])->name('order.history');

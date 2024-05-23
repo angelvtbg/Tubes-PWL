@@ -15,10 +15,12 @@
                 <span class="menu__preci">Rp {{ number_format((float)$menu->harga_menu, 0, ',', '.') }}</span>
                 <p>{{ $menu->berita_menu }}</p> <!-- Assuming there's a description column in your menu table -->
             </div>
-            <form action="{{ route('order.addToCart') }}" method="GET">
+            <form action="{{ route('order.addToCart') }}" method="POST">
+                @csrf
                 <input type="hidden" name="namaMenu" value="<?= $menu['nama_menu'] ?>">
                 <input type="hidden" name="hargaMenu" value="<?= $menu['harga_menu'] ?>">
-                <label for="quantity">Banyak pesanan : </label><input type="number" name="quantity" id="quantity" value=1 style="width: 50px" min="1">
+                <label for="quantity">Banyak pesanan :
+                    </label><input type="number" name="quantity" id="quantity" value=1 style="width: 50px" min="1">
                 <button type="submit" name="order" class="custom-button">Add to Cart</button>
             </form>
         </div>
