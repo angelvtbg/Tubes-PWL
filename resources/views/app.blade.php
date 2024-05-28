@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/me.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('css/me.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/konten.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylesCard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylesGaleri.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylesSlider.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/swiper-bundle.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/swiper-bundle2.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/swiper-bundle2.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -26,6 +27,7 @@
 <script src="https://unpkg.com/scrollreveal"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/konten.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/login.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/mainCard.js') }}"></script>

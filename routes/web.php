@@ -17,6 +17,7 @@ use App\Http\Controllers\ReservAdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\orderAdminController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ThumbnailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,6 +188,14 @@ Route::post('/orders/confirm', [OrderController::class, 'confirmOrder'])->name('
 Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
 Route::post('/order/add', [OrderController::class, 'addToCart'])->name('order.add');
 Route::post('/order/addToCart', [OrderController::class, 'addToCart'])->name('order.addToCart');
+Route::get('/order/admin', [OrderController::class, 'admin'])->name('order.admin');
 
 Route::get('/order/{id}', [OrderController::class, 'details'])->name('order.details');
+Route::post('/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('orders.deliver');
+Route::post('/orders/{id}/pay', [OrderController::class, 'pay'])->name('orders.pay');
 Route::get('/order/history', [OrderController::class, 'orderHistory'])->name('order.history');
+
+Route::get('/konten', 'App\Http\Controllers\KontenController@index');
+
+Route::get('/thumbnail', [ThumbnailController::class, 'thumbnail']);
+Route::get('/menu/{id}', [MenuController::class, 'konten'])->name('menu.konten');

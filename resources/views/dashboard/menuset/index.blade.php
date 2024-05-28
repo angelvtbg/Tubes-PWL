@@ -57,7 +57,7 @@
                                     {{ $menu->penulis }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $menu->id_kategori }}
+                                    {{ $menu->kategori ? $menu->kategori->name : 'Kategori Tidak Ditemukan' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $menu->nama_menu }}
@@ -69,7 +69,7 @@
                                     <img src="{{ Storage::url($menu->gambar_menu) }}" alt="{{ $menu->nama_menu }}" class="w-12 h-12">
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ Str::limit($menu->berita_menu, 100) }}...
+                                    {{ Str::limit($menu->berita_menu, 35) }}...
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $menu->tanggal_menu }}

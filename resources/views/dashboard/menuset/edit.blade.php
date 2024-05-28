@@ -21,7 +21,13 @@
                         <!-- Kategori -->
                         <div class="mb-4">
                             <label for="id_kategori" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
-                            <input type="number" name="id_kategori" id="id_kategori" class="mt-1 block w-full" value="{{ $menu->id_kategori }}" required>
+                            <select name="id_kategori" id="id_kategori" class="mt-1 block w-full" required>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $menu->id_kategori == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <!-- Nama Menu -->
                         <div class="mb-4">
@@ -47,11 +53,6 @@
                         <div class="mb-4">
                             <label for="tanggal_menu" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal Menu</label>
                             <input type="date" name="tanggal_menu" id="tanggal_menu" class="mt-1 block w-full" value="{{ $menu->tanggal_menu }}" required>
-                        </div>
-                        <!-- Dilihat -->
-                        <div class="mb-4">
-                            <label for="dilihat" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dilihat</label>
-                            <input type="number" name="dilihat" id="dilihat" class="mt-1 block w-full" value="{{ $menu->dilihat }}" required>
                         </div>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Update</button>
                     </form>

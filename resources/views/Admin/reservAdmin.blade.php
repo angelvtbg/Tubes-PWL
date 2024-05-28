@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title>Reservation : Café de Flore</title>
+    <link rel="stylesheet" href="{{ asset('css/stylesReserve.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cust.css') }}">
 </head>
 
-<body>
-    @include('partials.navbar')
-    <a href="#" class="scrolltop" id="scroll-top">
-        <i class='bx bx-chevron-up scrolltop__icon'></i>
-    </a>
+<x-app-layout>
     <section class="menu section" id="menu">
         <div class="menulist__container">
             <div>
@@ -101,3 +89,4 @@
 </body>
 
 </html>
+</x-app-layout>

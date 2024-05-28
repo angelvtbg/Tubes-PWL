@@ -15,8 +15,14 @@
   } ini nanti taro di media */
   
   .menu__container{
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
+  margin-top: 3rem;
+  padding: 0;
+
+  
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center; 
+  align-items: center;
   }
   
   .log__container{
@@ -38,7 +44,7 @@
   }
   
   .menu__content{
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     background-color: var(--container-color);
@@ -47,6 +53,10 @@
     padding: .75rem;
     width: 200px;
     height: 275px;
+
+    
+  justify-self: center;
+  align-self: center;
   }
   
   .log__content{
@@ -60,8 +70,8 @@
   }
   
   .menu__img{
-margin-top: 10px;
-    width: 120px;
+    margin-top: 10px;
+    width: 135px;
     align-self: center;
     margin-bottom: var(--mb-2);
     border-radius: 50%;

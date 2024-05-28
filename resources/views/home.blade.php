@@ -8,7 +8,9 @@
 @include('partials.about')
 @include('partials.services')
 @include('menu.index')
-@include('partials.berita')
-@include('partials.profile_card')
+
+<center>
+    @include('menu.thumbnail')
+</center>
 @include('partials.contact')
 

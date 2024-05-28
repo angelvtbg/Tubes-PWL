@@ -10,13 +10,15 @@ class HomeController extends Controller
 {
     public function index()
 {
-    $menus = Menu::all(); // Mengambil semua data menu
+    $menus = Menu::orderBy('dilihat', 'desc')->take(3)->get(); // Mengambil semua data menu
 
     // Debug isi dari $menus
     if (empty($menus)) {
         // Lakukan penanganan jika $menus kosong
     }
 
-    return view('home', compact('menus'));
+    $thumbnail = Menu::all();
+
+    return view('home', compact('menus', 'thumbnail'));
 }
 }

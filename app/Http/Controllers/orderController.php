@@ -170,4 +170,31 @@ class OrderController extends Controller
 
         return view('history.orderhistory', compact('orders', 'pendingOrders'));
     }
+    public function admin()
+    {
+        $orders = Ticket::where('status', 'confirmed')
+                        ->orWhere('payment', '')
+                        ->orderBy('id', 'ASC')
+                        ->get();
+
+        return view('order.admin', compact('orders'));
+    }
+
+    public function deliver(Request $request, $id)
+    {
+        $order = Ticket::findOrFail($id);
+        $order->status = 'done';
+        $order->save();
+
+        return redirect()->route('order.admin');
+    }
+
+    public function pay(Request $request, $id)
+    {
+        $order = Ticket::findOrFail($id);
+        $order->payment = 'done';
+        $order->save();
+
+        return redirect()->route('order.admin');
+    }
 }

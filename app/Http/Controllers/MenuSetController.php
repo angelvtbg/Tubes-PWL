@@ -53,8 +53,8 @@ class MenuSetController extends Controller
 
     public function edit($id)
     {
-        $categories = Kategori::all();
         $menu = Menu::findOrFail($id);
+        $categories = Kategori::all();
         return view('dashboard.menuset.edit', compact('menu', 'categories'));
     }
 

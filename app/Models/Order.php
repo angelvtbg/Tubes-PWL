@@ -12,6 +12,6 @@ class Order extends Model
     protected $table = 'ticket';
 
     protected $fillable = [
-        'idPelanggan', 'pesanan', 'status', 'total'
+        'idPelanggan', 'pesanan', 'status', 'total', 'nomorMeja', 'tanggal', 'payment'
     ];
 }

@@ -29,7 +29,7 @@
   --z-fixed: 100;
 
   /*========== Colors ==========*/
-  --first-color: #5b4f47;
+  /* --first-color: #5b4f47;
   --first-color-alt: #ccbeb8;
   --title-color: #483e37;
   --text-color: #707070;
@@ -43,11 +43,11 @@
   --cart-color: rgb(221, 216, 206);
   --profile-color: rgb(243, 241, 234);
   --input-color: #fbfefd;
-  --search-color: #bfbab1;
+  --search-color: #bfbab1; */
 }
 
 /*========== Variables Dark theme ==========*/
-body.dark-theme {
+/* body.dark-theme {
   --title-color: rgb(234, 230, 222);
   --text-color: rgb(187, 180, 165);
   --body-color: #5f483f;
@@ -61,7 +61,7 @@ body.dark-theme {
   --profile-color: #5b4940;
   --input-color: rgb(221, 216, 206);
   --search-color: #c2b9b4;
-}
+} */
 
 form {
   font-family: "Lato", sans-serif;

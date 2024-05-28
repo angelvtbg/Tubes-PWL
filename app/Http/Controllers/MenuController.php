@@ -9,7 +9,7 @@ class MenuController extends Controller
 {
     public function index()
 {
-    $menus = Menu::all(); // Mengambil semua data menu
+    $menus = Menu::orderBy('dilihat', 'desc'); // Mengambil semua data menu
 
     // Debug isi dari $menus
     if (empty($menus)) {
@@ -58,7 +58,8 @@ public function store(Request $request)
 public function edit($id)
 {
     $menu = Menu::findOrFail($id);
-    return view('dashboard.menuset.edit', compact('menu'));
+    $categories = Kategori::all();
+    return view('dashboard.menuset.edit', compact('menu', 'categories'));
 }
 
 public function update(Request $request, $id)
@@ -110,5 +111,10 @@ public function details($id)
         }
 
         return view('menu.details', compact('menu'));
+    }
+    public function konten($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('menu.konten', compact('menu'));
     }
 }

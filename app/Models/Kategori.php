@@ -13,4 +13,8 @@ class Kategori extends Model
         'name'
     ];
     
+    public function menus()
+{
+    return $this->hasMany(Menu::class, 'id_kategori');
+}
 }

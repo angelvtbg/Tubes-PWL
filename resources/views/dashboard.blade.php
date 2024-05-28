@@ -43,7 +43,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <h5 class="welcome">Selamat Datang,</h5>
-                                            <h3 class="dash-nama">{{ Auth::user()->nama }}</h3>
+                                            <h3 class="dash-nama">{{ Auth::user()->name }}</h3>
                                         </div>
                                         <div class="card ml-2 col" style="width: 4rem;">
                                             <div class="card-title">
@@ -80,38 +80,41 @@
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 text-gray-900 dark:text-gray-100">
                                 <div class="container">
-                                    <div class="row">
-                                        <h3 class="text-dark mx-auto my-4">Tools</h3>
-                                    </div>
-                                    <div class="row">
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Pengelola Menu</h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/news.png') }}" alt="logo">
-                                            <a href="{{ route('menuset.index') }}"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Moderasi komentar</h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/moderasi.png') }}" alt="logo">
-                                            <a href="komentar.php"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Kategori </h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/kategora.png') }}" alt="logo">
-                                            <a href="{{ route('kategori.index') }}"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Pengguna</h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/pengguna.png') }}" alt="logo">
-                                            <a href="{{ route('pengguna.index') }}"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
-                                        <div class="card ml-2 mr-5 col" style="width: 4rem;">
+                                    <div class="newContent grid">
+                                        <article class="newCard">
+                                            <a href="{{ route('menuset.index') }}">
+                                                <img src="{{ asset('images/food.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Menu</h2>
+                                        </article>
+                                        <article class="newCard">
+                                            <a href="{{ route('kategori.index') }}">
+                                                <img src="{{ asset('images/bg/kategora.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Category</h2>
+                                        </article>
+                                        <article class="newCard">
+                                            <a href="{{ route('pengguna.index') }}">
+                                                <img src="{{ asset('images/bg/pengguna.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">User</h2>
+                                        </article>
+                                        <article class="newCard">
                                             @if(Auth::check() && Auth::user()->role == 'admin')
-                                            <h2 class="mt-4" style="text-align: center;">Kelola Reservasi</h2>
-                                            <div class="card-title">
-                                                <a href="{{ route('admin.reservadmin') }}" class="text-sm text-gray-700 underline">lihat</a>
-                                            </div>
+                                            <a href="{{ route('admin.reservadmin') }}">
+                                                <img src="{{ asset('images/reservation.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Reservation</h2>
                                             @endif
-                                        </div>
+                                        </article>
+                                        <article class="newCard">
+                                            @if(Auth::check() && Auth::user()->role == 'admin')
+                                            <a href="{{ route('order.admin') }}">
+                                                <img src="{{ asset('images/course.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Pemesanan Makanan</h2>
+                                            @endif
+                                        </article>
                                     </div>
                                     </div>
                                 </div>
@@ -122,59 +125,40 @@
             </center>
         @elseif(auth()->user()->role == 'user')
             {{-- Konten khusus user --}}
+            <center>
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
-                            <div class="text-center">
-                                <h2 class="text-xl font-bold mb-4">Reservasi</h2>
-                                <a href="{{ route('reservation.index') }}" class="btn btn-primary">Reservasi Sekarang</a>
-                            </div>
+                        <div class="newContent grid">
+                            <article class="newCard">
+                                <a href="{{ route('reservation.index') }}">
+                                    <img src="{{ asset('images/reservation.png') }}" alt="image" class="newImg">
+                                </a>
+                                <h2 class="newTitle">Reserve Now</h2>
+                            </article>
+                            <article class="newCard">
+                                <a href="{{ route('order.index') }}">
+                                    <img src="{{ asset('images/course.png') }}" alt="image" class="newImg">
+                                </a>
+                                <h2 class="newTitle">Order Now</h2>
+                            </article>
+                            <article class="newCard">
+                                <a href="{{ route('history.reservhistory') }}">
+                                    <img src="{{ asset('images/reservation.png') }}" alt="image" class="newImg">
+                                </a>
+                                <h2 class="newTitle">Reservation History</h2>
+                            </article>
+                            <article class="newCard">
+                                <a href="{{ route('order.history') }}">
+                                    <img src="{{ asset('images/course.png') }}" alt="image" class="newImg">
+                                </a>
+                                <h2 class="newTitle">Order History</h2>
+                            </article>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
-                            <div class="text-center">
-                                <h2 class="text-xl font-bold mb-4">Pesan Makanan</h2>
-                                <a href="{{ route('order.index') }}" class="btn btn-primary">Pesan Sekarang</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
-                            <div class="text-center">
-                                <h2 class="text-xl font-bold mb-4">Histori Reservasi</h2>
-                                <a href="{{ route('history.reservhistory') }}" class="btn btn-primary">Lihat Histori</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Tambahkan tombol untuk pergi ke halaman reservasi -->
-                            <div class="text-center">
-                                <h2 class="text-xl font-bold mb-4">Histori Pemesanan</h2>
-                                <a href="{{ route('order.history') }}" class="btn btn-primary">Lihat Histori</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+            </center>
         @elseif(auth()->user()->role == 'chef')
             <center>
                 <div class="py-12">
@@ -207,8 +191,12 @@
                             <div class="p-6 text-gray-900 dark:text-gray-100">
                                 <div class="jumbotron dashboard">
                                     <div class="row">
-                <!-- Tombol untuk mengelola profil chef -->
-                <a href="{{ route('Chefprofile.index') }}" class="btn btn-primary mt-4">Kelola Profil Chef</a>
+                                        <article class="newCard">
+                                            <a href="{{ route('Chefprofile.index') }}">
+                                                <img src="{{ asset('images/profile.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Edit Chef Profile</h2>
+                                        </article>
                                     </div>
                                 </div>
                             </div>
@@ -223,20 +211,19 @@
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 text-gray-900 dark:text-gray-100">
                                 <div class="container">
-                                    <div class="row">
-                                        <h3 class="text-dark mx-auto my-4">Tools</h3>
-                                    </div>
-                                    <div class="row my-4">
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Pengelola Menu</h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/news.png') }}" alt="logo">
-                                            <a href="{{ route('menuset.index') }}"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
-                                        <div class="opsi col mb-4">
-                                            <h2 class="mt-4" style="text-align: center;">Kategori </h2>
-                                            <img class="sub-logo my-3" src="{{ asset('images/bg/kategora.png') }}" alt="logo">
-                                            <a href="{{ route('kategori.index') }}"><button class="tombol mt-2"> Lihat </button></a>
-                                        </div>
+                                    <div class="newSection grid">
+                                        <article class="newCard">
+                                            <a href="{{ route('menuset.index') }}">
+                                                <img src="{{ asset('images/food.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Menu Edit</h2>
+                                        </article>
+                                        <article class="newCard">
+                                            <a href="{{ route('kategori.index') }}">
+                                                <img src="{{ asset('images/bg/kategora.png') }}" alt="image" class="newImg">
+                                            </a>
+                                            <h2 class="newTitle">Category</h2>
+                                        </article>
                                     </div>
                                     </div>
                                 </div>
