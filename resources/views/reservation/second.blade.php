@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ asset('css/stylesReserve.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <title>Contact info (Reservation)</title>
 </head>
 
@@ -13,8 +13,8 @@
     @include('includes.headerR')
 
     <main class="l-main">
-        <section id="home" class="review__container">
-            <div class="home__container bd-container home-grid">
+        <section id="home" class="review__container reserv__content">
+            <div class="">
                 <div class="home__data">
                     <h1>Biodata</h1>
                     <p>Silahkan isi data diri anda</p>

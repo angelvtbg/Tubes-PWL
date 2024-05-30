@@ -15,6 +15,7 @@
     <link href="{{ asset('css/stylesCard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylesGaleri.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylesSlider.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     {{-- <link href="{{ asset('css/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/swiper-bundle2.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">

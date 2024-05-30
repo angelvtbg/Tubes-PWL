@@ -11,6 +11,7 @@
 
 <center>
     @include('menu.thumbnail')
+    {{-- @include('menu.konten') --}}
 </center>
 @include('partials.contact')
 

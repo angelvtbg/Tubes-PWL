@@ -117,4 +117,19 @@ public function details($id)
         $menu = Menu::findOrFail($id);
         return view('menu.konten', compact('menu'));
     }
+    public function lainnya()
+    {
+        $thumbnail = Menu::orderBy('dilihat', 'desc')->get();
+        return view('menu.lainnya', compact('thumbnail'));
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $thumbnail = Menu::where('nama_menu', 'LIKE', "%{$query}%")
+                        ->orWhere('berita_menu', 'LIKE', "%{$query}%")
+                        ->orderBy('dilihat', 'desc')
+                        ->get();
+
+        return view('menu.lainnya', compact('thumbnail'));
+    }
 }

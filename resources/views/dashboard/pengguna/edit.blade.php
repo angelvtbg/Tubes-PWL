@@ -9,7 +9,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="history__container bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white dark:bg-gray-800">
                     <form method="POST" action="{{ route('pengguna.update', $user->id) }}">
                         @csrf
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <button class="ml-4">
+                            <button class="custom-button">
                                 {{ __('Simpan') }}
                             </button>
                         </div>

@@ -47,14 +47,14 @@
                         <!-- Berita Menu -->
                         <div class="mb-4">
                             <label for="berita_menu" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Berita Menu</label>
-                            <input type="text" name="berita_menu" id="berita_menu" class="mt-1 block w-full" value="{{ $menu->berita_menu }}" required>
+                            <textarea name="berita_menu" id="berita_menu" class="mt-1 block w-full ckeditor" value="{{ $menu->berita_menu }}" required>{{ $menu->berita_menu }}</textarea>
                         </div>
                         <!-- Tanggal Menu -->
                         <div class="mb-4">
                             <label for="tanggal_menu" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal Menu</label>
                             <input type="date" name="tanggal_menu" id="tanggal_menu" class="mt-1 block w-full" value="{{ $menu->tanggal_menu }}" required>
                         </div>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Update</button>
+                        <button type="submit" class="custom-button">Update</button>
                     </form>
                 </div>
             </div>

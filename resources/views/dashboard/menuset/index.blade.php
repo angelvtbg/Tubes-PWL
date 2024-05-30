@@ -9,10 +9,20 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('menuset.create') }}" class="mb-4 inline-block bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-                        Tambah Menu
-                    </a>
-                    <table class="min-w-full divide-y divide-gray-200">
+                    <div class="row">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="history__data text-xl font-semibold">Tambah Menu</h1>
+                        <a href="{{ route('menuset.create') }}" class="custom-button">Tambah Menu Baru</a>
+                    </div>
+                    <div class="">
+                    <form method="GET" action="{{ route('menuset.index') }}" class="center mb-4">
+                        <input type="text" name="search" value="{{ request('search') }}" class="bg-gray-200 text-black rounded py-2 px-4" placeholder="Cari Nama Menu">
+                        <button type="submit" class="soft-button">Cari</button>
+                    </form>
+                    </div>
+                    </div>
+                    <div class="tableKategori">
+                    <table class="tableKategori min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -78,11 +88,11 @@
                                     {{ $menu->dilihat }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('menuset.edit', $menu->id_menu) }}" class="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-2 px-4 rounded">Edit</a>
+                                    <a href="{{ route('menuset.edit', $menu->id_menu) }}" class="soft-button">Edit</a>
                                     <form action="{{ route('menuset.destroy', $menu->id_menu) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                        <button type="submit" class="danger-button">
                                             Hapus
                                         </button>
                                     </form>
@@ -91,6 +101,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

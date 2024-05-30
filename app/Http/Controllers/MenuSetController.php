@@ -8,10 +8,18 @@ use App\Models\Menu;
 
 class MenuSetController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $query = Menu::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nama_menu', 'LIKE', "%{$search}%");
+        }
+
+        $menus = $query->with('kategori')->get();
         $categories = Kategori::all();
-        $menus = Menu::with('kategori')->get();
+        
         return view('dashboard.menuset.index', compact('menus', 'categories'));
     }
 

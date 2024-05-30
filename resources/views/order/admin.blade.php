@@ -4,12 +4,12 @@
 </head>
 
 <x-app-layout>
-<section class="menu section" id="menu">
-    <div class="menulist__container">
+<section class="history section" id="menu">
+    <div class="history__container">
         <div>
-            <h1>Pesanan</h1>
+            <h1 class="history__data text-xl font-semibold">Order List</h1>
 
-            <div style="margin-top: 20px;">                
+            <div style=" margin-top: 20px;">                
                 @foreach ($orders as $order)
                 @if ($order->pesanan)
                 <div class="history__box">
@@ -18,7 +18,7 @@
 
                     <?php
                     $user = \App\Models\User::find($order->idPelanggan);
-                    $nama = $user ? $user->nama : '';
+                    $nama = $user ? $user->name : '';
                     ?>
 
                     <h4>Atas nama : {{ $nama }}</h4>

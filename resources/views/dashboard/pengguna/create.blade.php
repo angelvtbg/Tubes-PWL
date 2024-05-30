@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <button class="ml-4">
+                            <button class="custom-button ml-4">
                                 {{ __('Simpan') }}
                             </button>
                         </div>

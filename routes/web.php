@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('kategori', KategoriController::class);
 
+Route::get('/lainnya', [MenuController::class, 'lainnya'])->name('lainnya');
+Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
 
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
@@ -107,7 +109,6 @@ Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kate
 Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/{kategori}/update', [KategoriController::class, 'update'])->name('kategori.update');
 Route::delete('/kategori/{id}/delete', [KategoriController::class, 'delete'])->name('kategori.delete'); // Definisi route untuk aksi penghapusan
-
 
 Route::resource('menuset', MenuController::class);
 
@@ -121,7 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::middleware(['auth', 'checkrole:admin,chef'])->group(function () {
-    Route::get('/menuset', [MenuController::class, 'index'])->name('menuset.index');
+    Route::get('/menuset', [MenuSetController::class, 'index'])->name('menuset.index');
     Route::get('/menuset/create', [MenuController::class, 'create'])->name('menuset.create');
     Route::post('/menuset', [MenuController::class, 'store'])->name('menuset.store');
     Route::get('/menuset/{id}/edit', [MenuController::class, 'edit'])->name('menuset.edit');
@@ -142,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Chefprofile/edit', [Chef_ProfileController::class, 'edit'])->name('Chefprofile.edit');
 
     // Mengupdate profil koki
-    Route::put('/Chefprofile/{chefProfile}', [Chef_ProfileController::class, 'update'])->name('Chefprofile.update');
+    Route::put('/Chefprofile/show', [Chef_ProfileController::class, 'update'])->name('Chefprofile.update');
 });
 
 Route::middleware(['auth', 'checkrole:chef'])->group(function () {

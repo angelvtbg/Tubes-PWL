@@ -9,7 +9,7 @@
         <div>
             <h2 class="section-title">{{ $menu->nama_menu }}</h2>
             <div class="menu__content">
-                <img src="{{ Storage::url($menu->gambar_menu) }}" alt="" class="menu__img">
+                <img src="{{ Storage::url($menu->gambar_menu) }}" alt="" class="menu__photo">
                 <h3 class="menu__name">{{ $menu->nama_menu }}</h3>
                 <span class="menu__detail">Delicious dish</span>
                 <span class="menu__preci">Rp {{ number_format((float)$menu->harga_menu, 0, ',', '.') }}</span>
