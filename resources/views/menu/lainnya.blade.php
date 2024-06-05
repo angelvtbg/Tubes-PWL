@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kartu Makanan</title>
+    <title>Semua Makanan</title>
     <link rel="stylesheet" href="{{ asset('css/stylesReserve.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cust.css') }}">
     <link rel="stylesheet" href="{{ asset('css/breezeStyles.css') }}">

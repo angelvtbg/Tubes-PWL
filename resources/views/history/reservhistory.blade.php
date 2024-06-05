@@ -28,32 +28,26 @@
     <div class="bottom">
         @include('includes.headerR')
     </div>
+@guest
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-center">Anda belum login. Silakan <a href="{{ route('login') }}"
+                            class="text-blue-500">login</a> untuk melanjutkan atau kembali ke <a
+                            href="{{ url('/') }}" class="text-blue-500">halaman utama</a>.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+@endguest
+
+@auth
+@if (auth()->user()->role == 'user')
     <section class="history" id="menu">
         <div class="his__container ">
             <div>
                 <h1 class="center history__data text-xl font-semibold">Reservasi</h1>
-
-                {{-- <center>
-                    <div class="menu__filters">
-                        <ul>
-                            <li><a class="filter__button"
-                                    href="{{ route('history.reservhistory', ['status' => 'confirmed']) }}">CONFIRMED</a>
-                            </li>
-                            <li><a class="filter__button"
-                                    href="{{ route('history.reservhistory', ['status' => 'waiting']) }}">WAITING</a>
-                            </li>
-                            <li><a class="filter__button"
-                                    href="{{ route('history.reservhistory', ['status' => 'rejected']) }}">REJECTED</a>
-                            </li>
-                            <li><a class="filter__button"
-                                    href="{{ route('history.reservhistory', ['status' => 'absent']) }}">ABSENT</a></li>
-                            <li><a class="filter__button"
-                                    href="{{ route('history.reservhistory', ['status' => 'attended']) }}">ATTENDED</a>
-                            </li>
-                        </ul>
-                    </div>
-                </center> --}}
-
                 <div style="margin-top: 20px; ">
                     <div style="margin-bottom: 20px;">
                         @if (isset($waitingResult) && count($waitingResult) > 0)
@@ -575,7 +569,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
     </script>
-
+    @endif
+    @endauth
 </body>
 
 </html>

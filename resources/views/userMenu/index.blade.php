@@ -90,11 +90,10 @@ if (isset($_POST['search'])) {
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/cust.css">
 
-    <title>Menu : Café de Flore</title>
+    <title>Menu : Linguini</title>
 </head>
 
 <body>
-
     <!--========== SCROLL TOP ==========-->
     <a href="#" class="scrolltop" id="scroll-top">
         <i class='bx bx-chevron-up scrolltop__icon'></i>

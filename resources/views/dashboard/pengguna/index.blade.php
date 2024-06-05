@@ -6,7 +6,22 @@
             {{ __('Pengelolaan Pengguna') }}
         </h2>
     </x-slot>
+    @guest
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <h3 class="text-center">Anda belum login. Silakan <a href="{{ route('login') }}"
+                                class="text-blue-500">login</a> untuk melanjutkan atau kembali ke <a
+                                href="{{ url('/') }}" class="text-blue-500">halaman utama</a>.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endguest
 
+    @auth
+    @if (auth()->user()->role == 'admin')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -63,4 +78,6 @@
             </div>
         </div>
     </div>
+    @endif
+    @endauth
 </x-app-layout>

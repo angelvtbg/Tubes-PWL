@@ -5,7 +5,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Dropdown Test</title>
+            <title>Linguini</title>
             <!-- Bootstrap CSS -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
@@ -18,7 +18,7 @@
                     </a>
                     <div class="nav__menu" id="nav-menu">
                         <ul class="nav__list">
-                            <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                            <li class="nav__item"><a href="/" class="nav__link active-link">Home</a></li>
                             <li class="nav__item">
                                 <a href="{{ route('dashboard') }}"
                                     class="nav__link {{ request()->routeIs('dashboard') ? 'active-link' : '' }}">

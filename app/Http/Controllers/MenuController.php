@@ -115,6 +115,8 @@ public function details($id)
     public function konten($id)
     {
         $menu = Menu::findOrFail($id);
+        $menu->increment('dilihat');
+        
         return view('menu.konten', compact('menu'));
     }
     public function lainnya()
